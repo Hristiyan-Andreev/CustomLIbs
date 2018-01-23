@@ -11,6 +11,7 @@
 #ifndef HGPIO_LIB_H_
 #define HGPIO_LIB_H_
 
+// **************** GPIO DEFINITIONS ******************************
 
 #define NoPull GPIO_PuPd_NOPULL
 #define PullUp GPIO_PuPd_UP
@@ -24,15 +25,20 @@
 #define OutputPP GPIO_OType_PP
 #define OutputOD GPIO_OType_OD
 
+// *************** NVIC DEFINITIONS ********************************
+
+
+//**************** GPIO PROTOTYPES *********************************
 
 uint8_t PinToAFSource(uint16_t PIN);
 void AnalogIn(GPIO_TypeDef* PORT, uint16_t PIN);
 void DigitalOut(GPIO_TypeDef* PORT, uint16_t PIN, GPIOOType_TypeDef PushOrDrain,
 										GPIOPuPd_TypeDef PULL, GPIOSpeed_TypeDef SPEED);
 void DigitalIn(GPIO_TypeDef* PORT, uint16_t PIN, GPIOPuPd_TypeDef PULL);
-
 void AltFunc1(GPIO_TypeDef* PORT, uint16_t PIN, uint8_t FUNCTION);
 void AltFunc2(GPIO_TypeDef* PORT, uint16_t PIN, uint8_t FUNCTION, GPIOOType_TypeDef PushOrDrain,
 										GPIOPuPd_TypeDef PULL, GPIOSpeed_TypeDef SPEED);
+
+//***************** NVIC PROTOTYPES ********************************
 
 #endif /* HGPIO_LIB_H_ */
