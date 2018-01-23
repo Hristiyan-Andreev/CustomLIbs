@@ -6,6 +6,7 @@
  */
 
 #include "hGPIO_LIB.h"
+// **************************** GPIO FUNCTIONS ********************************
 
 /* To convert from GPIO_PIN to GPIO_PIN_Source */
 uint8_t PinToAFSource(uint16_t PIN)
@@ -83,4 +84,38 @@ void AltFunc2(GPIO_TypeDef* PORT, uint16_t PIN, uint8_t FUNCTION, GPIOOType_Type
 	GPIOInitStruct.GPIO_Speed = SPEED;   // Chosen speed
 	GPIO_Init(PORT, &GPIOInitStruct);
 	GPIO_PinAFConfig(GPIOA, PinToAFSource(PIN), FUNCTION);
+}
+
+
+// ******************************** USART Functions **************************************
+void USART_basic(uint32_t Baud, uint16_t WordLength, uint16_t Mode)
+{
+	USART_InitTypeDef USARTSetup;
+
+	USARTSetup.USART_BaudRate = Baud;
+	USARTSetup.USART_WordLength = WordLength;
+	USARTSetup.USART_StopBits = USART_StopBits_1;
+	USARTSetup.USART_Parity = USART_Parity_No;
+	USARTSetup.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USARTSetup.USART_Mode = Mode;
+	USART_Init(USART2, &USARTSetup); // Configure USART
+	USART_Cmd(USART2, ENABLE); // Enable the USART
+}
+
+// **************************** NVIC Functions **********************************************
+void InterruptEnable(uint8_t Channel, uint8_t Priority, uint8_t SubPriority)
+{
+	NVIC_InitTypeDef NVICSetup;				// Struct for NVIC config
+
+	NVICSetup.NVIC_IRQChannel = Channel;
+	NVICSetup.NVIC_IRQChannelPreemptionPriority = Priority;
+	NVICSetup.NVIC_IRQChannelSubPriority = SubPriority;
+	NVICSetup.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVICSetup);
+}
+
+void InterruptDisable(uint8_t Channel)
+{
+	/* Disable the Selected IRQ Channels -------------------------------------*/
+	NVIC->ICER[Channel >> 0x05] = (uint32_t)0x01 << (Channel & (uint8_t)0x1F);
 }

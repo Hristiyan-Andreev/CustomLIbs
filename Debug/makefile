@@ -29,14 +29,11 @@ endif
 # All Target
 all: CustomLIbs.elf
 
-dependents:
-	-cd G:/Documents\ and\ stuff/Project\ Avalanche/Workspace\ 4/nucleo-l152re_stdperiph_lib/Debug && $(MAKE) all
-
 # Tool invocations
-CustomLIbs.elf: $(OBJS) $(USER_OBJS) G:/Documents\ and\ stuff/Project\ Avalanche/Workspace\ 4/nucleo-l152re_stdperiph_lib/Debug/libnucleo-l152re_stdperiph_lib.a G:\Documents\ and\ stuff\Project\ Avalanche\Workspace\ 4\CustomLIbs\LinkerScript.ld
+CustomLIbs.elf: $(OBJS) $(USER_OBJS) D:\Docs\ and\ stuff\STM32\ Mats\Workspace1\CustomLIbs\LinkerScript.ld
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU GCC Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -L"G:\Documents and stuff\Project Avalanche\Workspace 4\nucleo-l152re_stdperiph_lib\Debug" -T"G:\Documents and stuff\Project Avalanche\Workspace 4\CustomLIbs\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CustomLIbs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -lm
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -L"D:\Docs and stuff\STM32 Mats\Workspace1\nucleo-l152re_stdperiph_lib\Debug" -T"D:\Docs and stuff\STM32 Mats\Workspace1\CustomLIbs\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CustomLIbs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -lm
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
@@ -54,6 +51,5 @@ post-build:
 
 .PHONY: all clean dependents
 .SECONDARY: post-build
-G:/Documents\ and\ stuff/Project\ Avalanche/Workspace\ 4/nucleo-l152re_stdperiph_lib/Debug/libnucleo-l152re_stdperiph_lib.a:
 
 -include ../makefile.targets
